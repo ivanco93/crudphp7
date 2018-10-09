@@ -5,6 +5,7 @@ session_start();
 
 include_once 'model.php';
 
+$_POST['action'] = "loginin";
 switch ($_POST['action']) {
     case "loginin":
         $sesion = validateSession($_POST['user'], $_POST['password']);
