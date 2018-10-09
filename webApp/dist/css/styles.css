@@ -1,0 +1,11 @@
+.loading{
+    display: none;
+}
+
+.status-completed{
+    display: block;
+}
+
+#loading{
+    display: none;
+}
