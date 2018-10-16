@@ -35,42 +35,36 @@ function validateSession($user, $password) {
     return $return;
 }
 
-//function createStudent($cedula, $name, $lname, $email, $phone, $user, $pwd){
-//    $return = array();
-//    $return['usridxx'] = $cedula;
-//    $return['usrnomxx'] = $name . " " . $lname;
-//    $db = new database();
-//    $valida = $db->select(
-//            "alumnos", 
-//            array("cedula"), 
-//            array("cedula" => $cedula)
-//    );
-//     
-//    if (mysqli_num_rows($valida) == 0) {
-//        $reg_usr = createUser($cedula, $user, $pwd);
-//        if($reg_usr!=0){
-//            $return['result'] = $reg_usr;
-//            return $return;
-//        }
-//        
-//        $result = $db->insert(
-//            "alumnos",
-//            array(
-//                "cedula" => $cedula, 
-//                "nombres" => $name, 
-//                "apellidos" => $lname,
-//                "email" => $email,
-//                "telefono" => $phone
-//            )
-//        );
-//
-//        $return['result'] =  (!$result) ? 1 : 0;
-//        
-//    }else{
-//        $return['result'] = 2;
-//    }
-//    return $return;
-//}
+function createStudent($cedula, $name, $lname, $email, $phone){
+    $return = array();
+    $db = new database();
+    $valida = $db->select(
+            "usuarios", 
+            array("cedula"), 
+            array("cedula" => $cedula)
+    );
+     
+    if (mysqli_num_rows($valida) == 0) {        
+        $result = $db->insert(
+            "usuarios",
+            array(
+                "cedula" => $cedula, 
+                "nombres" => $name, 
+                "apellidos" => $lname,
+                "email" => $email,
+                "telefono" => $phone
+            )
+        );
+
+        $return['ReturnCode'] =  ($result) ? 1 : 3;
+		$return['ReturnDesc'] = ($result) ? "Usuario creado exitosamente" : "Problemas al crear registro";
+        
+    }else{
+        $return['ReturnCode'] = 2;
+        $return['ReturnDesc'] = "Usuario ya existe";
+    }
+    return $return;
+}
 //
 ///*
 //        data.append("placa", placa);
@@ -218,3 +212,4 @@ function validateSession($user, $password) {
 //    $transaction = $db->delete($type, $id);
 //    return ($transaction) ? 0 : 1;
 //}
+
