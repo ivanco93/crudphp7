@@ -5,7 +5,6 @@ session_start();
 
 include_once 'model.php';
 
-$_POST['action'] = "loginin";
 switch ($_POST['action']) {
     case "loginin":
         $sesion = validateSession($_POST['user'], $_POST['password']);
@@ -56,6 +55,12 @@ switch ($_POST['action']) {
         );
         $deleteRegister = deleteRegister($_POST['id'], $_POST['type']);
         echo !isset($resultados[$deleteRegister])?$resultados[1]:$resultados[$deleteRegister];
+        break;
+    case "JSPService":
+        //echo 
+        require_once 'integrations/webServiceJSPClient.php';
+        $WSClient = new WSClient();
+        echo $WSClient->validateChessColors($_POST['cell1'], $_POST['cell2']);
         break;
     default :
         break;
